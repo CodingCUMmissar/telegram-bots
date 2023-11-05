@@ -6,6 +6,6 @@ type Update struct {
 }
 
 type UpdatesReponse struct {
-	Ok      bool     `json:"ok"`
-	Results []Update `json:"results"`
+	Ok     bool     `json:"ok"`
+	Result []Update `json:"results"`
 }

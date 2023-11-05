@@ -1,14 +1,13 @@
 package main
 
 import (
+	"clients/telegram"
 	"flag"
-	"read-adviser-bot/clients/telegram"
 
 	"log" //"github.com/rs/zerolog/log"
 )
 
 func main() {
-
 
 	tgClient = telegram.New(mustHost(), mustToken())
 
@@ -21,7 +20,7 @@ func main() {
 }
 
 func mustToken() string {
-	token := flag.String( 
+	token := flag.String(
 		"token-bot-token",
 		"",
 		"token for access to telegram bot",
@@ -37,7 +36,7 @@ func mustToken() string {
 }
 
 func mustHost() string {
-	host := flag.String( 
+	host := flag.String(
 		"telegram-host",
 		"",
 		"host for telegram",

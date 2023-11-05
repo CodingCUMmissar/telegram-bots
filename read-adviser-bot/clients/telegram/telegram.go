@@ -1,12 +1,12 @@
 package telegram
 
 import (
+	"e"
 	"encoding/json"
 	"io"
 	"net/http"
 	"net/url"
 	"path"
-	"read-adviser-bot/lib/e"
 	"strconv"
 )
 
@@ -17,7 +17,7 @@ type Client struct {
 }
 
 const (
-	getUpdatesMethod = "getUpdates"
+	getUpdatesMethod  = "getUpdates"
 	sendMessageMethod = "sendMessage"
 )
 
@@ -46,10 +46,11 @@ func (c *Client) Updates(offset int, limit int) ([]Update, error) {
 
 	var resp UpdatesReponse
 
-	if err := json.Unmarshal(data, &resp); err!= nil {
+	if err := json.Unmarshal(data, &resp); err != nil {
 		return nil, err
 	}
-    
+
+	return resp.Result, err
 }
 
 func (c *Client) doRequest(method string, query url.Values) (data []byte, err error) {
@@ -88,14 +89,13 @@ func (c *Client) doRequest(method string, query url.Values) (data []byte, err er
 
 func (c *Client) SendMessage(chatID string, text string) error {
 	q := url.Values{}
-    q.Add("chat_id", chatID)
-    q.Add("text", text)
+	q.Add("chat_id", chatID)
+	q.Add("text", text)
 
-    _, err := c.doRequest(sendMessageMethod, q)
-    if err!= nil {
-        return e.Wrap("failed to send message", err)
-    }
+	_, err := c.doRequest(sendMessageMethod, q)
+	if err != nil {
+		return e.Wrap("failed to send message", err)
+	}
 
 	return nil
 }
-
