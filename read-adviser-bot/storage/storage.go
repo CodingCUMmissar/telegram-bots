@@ -1,16 +1,21 @@
 package storage
 
 import (
-	"crypto/sha1"
+	"crypto/sha256"
 	"e"
+	"errors"
 	"fmt"
 )
 
-type Storage interface {
+var (
+	ErrNoSavedLinks = errors.New("no saved pages")
+)
+
+type IStorage interface {
 	Save(p *Page) error
 	PickRandom(userName string) (*Page, error)
 	Remove(p *Page) error
-	IsExists(p *Page) bool
+	IsExists(p *Page) (bool, error)
 }
 
 type Page struct {
@@ -18,9 +23,8 @@ type Page struct {
 	UserName string
 }
 
-
 func (p Page) Hash() (string, error) {
-	h := sha1.New()
+	h := sha256.New()
 
 	if _, err := h.Write([]byte(p.URL + p.UserName)); err != nil {
 		return "", e.WrapIfErr("failed to calculate hash", err)

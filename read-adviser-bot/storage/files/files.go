@@ -26,10 +26,6 @@ const (
 	defaultPerm = 0774
 )
 
-var (
-	ErrNoSavedPages = errors.New("no saved pages")
-)
-
 // func save page to storage
 func (s *Storage) Save(page *storage.Page) (err error) {
 	defer func() {
@@ -73,7 +69,7 @@ func (s *Storage) PickRandom(userName string) (page *storage.Page, err error) {
 	}
 
 	if len(files) == 0 {
-		return nil, ErrNoSavedPages
+		return nil, storage.ErrNoSavedLinks
 	}
 
 	randGenerator := rand.New(rand.NewSource(time.Now().UnixNano()))
@@ -125,14 +121,14 @@ func (s *Storage) IsExists(page *storage.Page) (bool, error) {
 	if err != nil {
 		return false, e.Wrap("failed to check file existence", err)
 	}
-	
+
 	fPath := filepath.Join(s.basePath, page.UserName, fName)
 
 	switch _, err = os.Stat(fPath); {
-		case errors.Is(err, os.ErrNotExist):
-			return false, nil
-		case err != nil:
-			return false, e.Wrap("failed to check file existence", err)
+	case errors.Is(err, os.ErrNotExist):
+		return false, nil
+	case err != nil:
+		return false, e.Wrap("failed to check file existence", err)
 	}
 	return true, nil
 }
