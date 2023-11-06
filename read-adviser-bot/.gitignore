@@ -1,0 +1,8 @@
+# Go specific
+*.exe
+*.work
+*.worksum
+
+# Build and binary files
+bin/
+
