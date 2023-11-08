@@ -2,7 +2,7 @@
 *.exe
 
 # Build and binary files
-bin/
+bin
 
 # Dependency directories 
 *.vscode
