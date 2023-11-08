@@ -1,7 +1,7 @@
 package telegram
 
 import (
-	"clients/telegram"
+	"telegram-client"
 
 	"github.com/goware/urlx"
 )

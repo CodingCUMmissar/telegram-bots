@@ -1,3 +1,3 @@
-module clients/telegram
+module telegram-client
 
 go 1.21.3

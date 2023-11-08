@@ -1,0 +1,13 @@
+go 1.21.3
+
+use (
+	.
+	storage
+	storage/files
+	clients/telegram
+	events
+	events/telegram
+	lib/e
+	algo/ternary
+	consumer
+)

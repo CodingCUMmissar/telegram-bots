@@ -1,7 +1,7 @@
 package main
 
 import (
-	"clients/telegram"
+	"telegram-client"
 	"flag"
 
 	"log" //"github.com/rs/zerolog/log"
